@@ -1,1 +1,12 @@
-export type { RfSensorParams } from './RfSensorParams.js';
+export type { GroundPositionParams } from './GroundPositionParams.js';
+export type { OptionsParams } from './OptionsParams.js';
+export type { TimeVariables } from './TimeVariables.js';
+export type { StarObjectParams } from './StarObjectParams.js';
+export type { ClassicalElementsParams } from './ClassicalElementsParams.js';
+export type { EquinoctialElementsParams } from './EquinoctialElementsParams.js';
+export type { ScenarioParams } from '../objects/Scenario.js';
+export type { BaseObjectParams } from '../objects/base/BaseObject.js';
+export type { GroundObjectParams } from '../objects/base/GroundObject.js';
+export type { FacilityParams } from '../objects/base/Facility.js';
+export type { SensorParams } from '../objects/attachable/SensorAdv.js';
+export type { RectangularSensorParams } from '../objects/attachable/RectangularSensor.js';

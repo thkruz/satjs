@@ -1,6 +1,6 @@
 {
   "name": "ootk",
-  "version": "4.0.2",
+  "version": "5.0.0-0",
   "type": "module",
   "module": "dist/main.js",
   "description": "Orbital Object Toolkit including Multiple Propagators, Initial Orbit Determination, and Maneuver Calculations.",
@@ -53,9 +53,6 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.7.1",
     "typescript": "^5.4.3"
-  },
-  "dependencies": {
-    "ootk-core": "^1.2.4"
   },
   "homepage": "https://github.com/thkruz/ootk"
 }

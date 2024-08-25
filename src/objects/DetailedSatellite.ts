@@ -15,18 +15,10 @@
  * Orbital Object ToolKit. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  FormatTle,
-  LaunchDetails,
-  OperationsDetails,
-  OptionsParams,
-  Satellite,
-  SpaceCraftDetails,
-  TleLine1,
-  TleLine2,
-} from 'ootk-core';
-import { DetailedSatelliteParams } from '../types/types.js';
-import { CatalogSource } from '../main.js';
+import { CatalogSource, FormatTle } from '../main.js';
+import { DetailedSensor } from './DetailedSensor.js';
+import { Satellite } from './Satellite.js';
+import { DetailedSatelliteParams, LaunchDetails, OperationsDetails, SpaceCraftDetails, TleLine1, TleLine2 } from '../types/types.js';
 
 /**
  * Represents a detailed satellite object with launch, spacecraft, and operations details.
@@ -60,16 +52,17 @@ export class DetailedSatellite extends Satellite {
   rcs: number|null;
   altId: string = '';
   altName: string = '';
+  sensors: DetailedSensor[] = [];
+  active: boolean;
 
   constructor(
     info: DetailedSatelliteParams & LaunchDetails & OperationsDetails & SpaceCraftDetails,
-    options?: OptionsParams,
   ) {
     if (info.source === CatalogSource.VIMPEL) {
       info = DetailedSatellite.setSccNumTo0_(info);
     }
 
-    super(info, options);
+    super(info);
 
     this.active ??= true;
     this.initSpaceCraftDetails_(info);
@@ -178,6 +171,24 @@ export class DetailedSatellite extends Satellite {
       equipment: this.equipment,
       dryMass: this.dryMass,
     };
+  }
+
+  attachSensor(sensor: DetailedSensor) {
+    if (this.sensors.includes(sensor)) {
+      return;
+    }
+
+    if (sensor.parent) {
+      sensor.parent.dettachSensor(sensor);
+    }
+
+    this.sensors.push(sensor);
+    sensor.parent = this;
+  }
+
+  dettachSensor(sensor: DetailedSensor) {
+    this.sensors = this.sensors.filter((s) => s !== sensor);
+    sensor.parent = null;
   }
 
   clone(): DetailedSatellite {
